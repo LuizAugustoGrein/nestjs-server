@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'luizaugustogreinunc/node-docker'
+            image 'luizaugustogreinunc/nestjs-server'
             args '-u root -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }

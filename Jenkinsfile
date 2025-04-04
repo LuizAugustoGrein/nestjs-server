@@ -19,11 +19,11 @@ pipeline {
                 sh 'npm run build'
             }
         }
-        // stage('test') {
-        //     steps {
-        //         sh 'npm run test'
-        //     }
-        // }
+        stage('test') {
+            steps {
+                sh 'npm run test'
+            }
+        }
         stage('build image') {
             steps {
                 sh 'docker build -t nestjs-server:1.0 .'

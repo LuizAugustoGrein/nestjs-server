@@ -5,6 +5,9 @@ pipeline {
             args '-u root'
         }
     }
+    environment {
+        PATH = "/usr/local/bin:$PATH"
+    }
     stages {
         stage('checkout') {
             steps {

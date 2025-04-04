@@ -4,13 +4,6 @@ pipeline {
         PATH = "/usr/local/bin:$PATH:/Users/luizaugustogrein/.nvm/versions/node/v20.11.1/bin:$PATH"
     }
     stages {
-        stage('build') {
-            steps {
-                sh 'node -v'
-                sh 'npm install'
-                sh 'npm run build'
-            }
-        }
         stage('checkout') {
             steps {
                 checkout scm

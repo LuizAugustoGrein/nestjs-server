@@ -1,7 +1,9 @@
 pipeline {
-    agent any
-    environment {
-        PATH = "/usr/local/bin:$PATH:/Users/luizaugustogrein/.nvm/versions/node/v20.11.1/bin:$PATH"
+    agent {
+        docker {
+            image 'node:20'
+            args '-u root'
+        }
     }
     stages {
         stage('checkout') {

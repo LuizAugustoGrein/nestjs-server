@@ -1,13 +1,6 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:20'
-            args '-u root'
-        }
-    }
-    environment {
-        PATH = "/usr/local/bin:$PATH"
-    }
+    agent any
+
     stages {
         stage('checkout') {
             steps {
@@ -15,16 +8,25 @@ pipeline {
             }
         }
         stage('install') {
+            agent {
+                docker { image 'node:20' }
+            }
             steps {
                 sh 'npm install'
             }
         }
         stage('build') {
+            agent {
+                docker { image 'node:20' }
+            }
             steps {
                 sh 'npm run build'
             }
         }
         stage('test') {
+            agent {
+                docker { image 'node:20' }
+            }
             steps {
                 sh 'npm run test'
             }
@@ -37,10 +39,12 @@ pipeline {
         stage('docker push') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-                    sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-                    sh 'docker tag nestjs-server:1.0 luizaugustogreinunc/nestjs-server:1.0'
-                    sh 'docker push luizaugustogreinunc/nestjs-server:1.0'
-                    sh 'docker logout'
+                    sh '''
+                        docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+                        docker tag nestjs-server:1.0 luizaugustogreinunc/nestjs-server:1.0
+                        docker push luizaugustogreinunc/nestjs-server:1.0
+                        docker logout
+                    '''
                 }
             }
         }

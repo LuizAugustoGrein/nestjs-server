@@ -1,15 +1,14 @@
 pipeline {
-    agent {
-        docker {
-            image 'luizaugustogreinunc/nestjs-server'
-            args '-u root -v /var/run/docker.sock:/var/run/docker.sock'
-        }
+    agent any
+    environment {
+        PATH = "/usr/local/bin:$PATH:/Users/luizaugustogrein/.nvm/versions/node/v20.11.1/bin:$PATH"
     }
     stages {
         stage('build') {
             steps {
                 sh 'node -v'
                 sh 'npm install'
+                sh 'npm run build'
             }
         }
         stage('checkout') {

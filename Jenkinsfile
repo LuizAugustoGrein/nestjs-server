@@ -1,6 +1,10 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'luizaugustogreinunc/node-docker'
+            args '-u root -v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
     stages {
         stage('checkout') {
             steps {

@@ -1,5 +1,8 @@
 # Usa a imagem do Node.js como base
-FROM node:20-alpine
+FROM node:20
+
+RUN apt-get update && \
+    apt-get install -y docker.io
 
 # Define o diretório de trabalho
 WORKDIR /app

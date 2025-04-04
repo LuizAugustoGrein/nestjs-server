@@ -8,25 +8,16 @@ pipeline {
             }
         }
         stage('install') {
-            agent {
-                docker { image 'node:20' }
-            }
             steps {
                 sh 'npm install'
             }
         }
         stage('build') {
-            agent {
-                docker { image 'node:20' }
-            }
             steps {
                 sh 'npm run build'
             }
         }
         stage('test') {
-            agent {
-                docker { image 'node:20' }
-            }
             steps {
                 sh 'npm run test'
             }
